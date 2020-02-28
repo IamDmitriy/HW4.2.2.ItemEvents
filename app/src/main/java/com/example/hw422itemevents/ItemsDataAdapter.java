@@ -9,10 +9,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemsDataAdapter extends BaseAdapter {
+
+    private Context context;
 
     private List<ItemData> items;
 
@@ -26,6 +30,8 @@ public class ItemsDataAdapter extends BaseAdapter {
     };
 
     ItemsDataAdapter(Context context, List<ItemData> items) {
+        this.context = context;
+
         if (items == null) {
             this.items = new ArrayList<>();
         } else {
@@ -78,7 +84,9 @@ public class ItemsDataAdapter extends BaseAdapter {
         TextView subtitle = view.findViewById(R.id.subtitle);
         Button btnDelete = view.findViewById(R.id.btnDelete);
 
-        image.setImageDrawable(itemData.getImage());
+        Glide.with(context)
+                .load(itemData.getImage())
+                .into(image);
         title.setText(itemData.getTitle());
         subtitle.setText(itemData.getSubtitle());
         btnDelete.setOnClickListener(btnDeleteListener);
